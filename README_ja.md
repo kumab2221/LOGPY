@@ -6,19 +6,25 @@ LoggerはPythonのコードを作成時に、作成した関数やクラスメ�
 
 ## Description
 ---
-Loggerクラスはimportするだけで使用可能です。運用環境ではパフォーマンスへの影響を最小限に抑えるために、LoggerをOFFにすることも可能です。  
+Loggerクラスは単純にインポートして使用することができます。また、運用中にはOFFに設定してパフォーマンスへの影響を最小限にすることも可能です。
 
-本プロジェクトは以下の3つの主要な部分で構成されています。  
+スレッドセーフを確保するためのLoggerのサブクラスであるThreadSafeLoggerクラスも提供しています。ThreadSafeLoggerはLoggerクラスと同じように使用しますが、スレッドセーフなロギングを提供します。
 
-- Logger.py : Loggerクラスを提供します。  
-    'log_calls'メソッドは関数の呼び出し回数をカウントし、'timer'メソッドは関数の処理時間を測定します。
-- analyze.py : ログデータを解析する'analyze_logs'関数を提供します。  
-- demo.py : 上記クラスと関数の使用例を示します。  
+このプロジェクトは主に以下の四つの部分で構成されています:
 
+- Logger.py: Loggerクラスを提供します。  
+    'log_calls'メソッドは関数の呼び出し回数をカウントし、'timer'メソッドは関数の実行時間を計測します。  
+
+- ThreadSafeLogger.py: ThreadSafeLoggerクラスを提供します。  
+    これはLoggerクラスのスレッドセーフなバージョンで、同じ方法で使用できます。  
+
+- analyze.py: ログデータを分析する'analyze_logs'関数を提供します。  
+
+- demo.py: 上記のクラスと関数の使用例をデモンストレーションします。  
 ## USAGE
 ---
 ### ログ埋め込み
-関数やメソッドにログ機能を追加するには、Loggerのメソッドをデコレータとして使用します。  
+関数やメソッドにログ機能を追加するために、Loggerのメソッドをデコレータとして使用します。ThreadSafeLoggerにも同じことが適用されます。  
 ```py
 @Logger.timer
 @Logger.log_calls
@@ -27,7 +33,7 @@ def slow_function():
 ```
 
 ### 開発時
-LoggerのenabledをTrueに設定し、モードを'memory'に設定することで、ログ情報をメモリに保存します。必要に応じて、ログ情報をテキストファイルに出力することも可能です。  
+LoggerのenabledをTrueに設定し、modeを'memory'に設定すると、ログ情報はメモリ内に保存されます。ThreadSafeLoggerにも同じ設定が適用されます。必要に応じて、ログ情報をテキストファイルに出力することもできます。  
 
 ```py
 Logger.enabled = True
@@ -45,7 +51,7 @@ analyze.analyze_logs(filename)
 ```
 
 ### 運用時
-運用環境ではパフォーマンスへの影響を最小限に抑えるために、LoggerをOFFに設定します。これ以降、Loggerのメソッドは何も出力しません。  
+運用環境では、LoggerまたはThreadSafeLoggerはOFFに設定してパフォーマンスへの影響を最小限にします。その後は、Loggerのメソッドは何も出力しません。  
 ```py
 Logger.enabled = False
 # これ以降はログは作成されない
@@ -54,7 +60,7 @@ Logger.enabled = False
 ## Latest Version
 v1.0 (2023-06-18)
 
-新たなデータ分析機能の追加、ロギング機能の改善、新しいデモンストレーション例の追加が行われました。詳細については、[リリースノート](リリースノートへのリンク)をご確認ください。
+新たなデータ分析機能の追加、ロギング機能の改善、新しいデモンストレーション例の追加が行われました。詳細については、[リリースノート](RELEASE_NOTES.md)をご確認ください。
 
 
 ## Requirement

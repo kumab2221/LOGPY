@@ -55,6 +55,11 @@ Logger.enabled = False
 # これ以降はログは作成されない
 ```
 
+### Latest Version
+v1.0 (2023-06-18)
+
+New data analysis features have been added, logging functions have been improved, and new demonstration examples have been added. For more details, please check the [release notes](link to the release notes).
+
 ## Requirement
 ---
 To run this project, you need Python 3.11.2 and the following Python libraries:
